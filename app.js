@@ -1,44 +1,46 @@
+// app.js
+
 const dot = document.getElementById("dot");
 const startBtn = document.getElementById("startBtn");
 const instruction = document.getElementById("instruction");
 
 const positions = [
-  {x: 20, y: 20},     // 左上
-  {x: 360, y: 20},    // 右上
-  {x: 360, y: 360},   // 右下
-  {x: 20, y: 360}     // 左下
+  {x: 10, y: 10},   // 左上
+  {x: 90, y: 10},   // 右上
+  {x: 90, y: 90},   // 右下
+  {x: 10, y: 90},   // 左下
+  {x: 50, y: 10},   // 上中央
+  {x: 90, y: 50},   // 右中央
+  {x: 50, y: 90},   // 下中央
+  {x: 10, y: 50}    // 左中央
 ];
 
-function shufflePattern() {
-  let arr = [...positions];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
+function shuffleArray(array) {
+  return array.sort(() => Math.random() - 0.5);
 }
 
 async function runExercise() {
   startBtn.style.display = "none";
   instruction.textContent = "赤い印を目で追ってください";
+
   dot.style.display = "block";
 
-  const pattern = shufflePattern();
-  const steps = 12; // 約10秒分
-  const seq = [];
+  // ランダムパターン作成（10秒間）
+  const pattern = shuffleArray([...positions]);
+  const totalDuration = 10000; // 10秒
+  const steps = 15; // ステップ数（多めにすると滑らか）
+  const delay = totalDuration / steps;
 
   for (let i = 0; i < steps; i++) {
-    seq.push(pattern[i % pattern.length]);
-  }
-
-  for (const p of seq) {
-    dot.style.left = p.x + "px";
-    dot.style.top = p.y + "px";
-    await new Promise(r => setTimeout(r, 800));
+    const pos = pattern[i % pattern.length];
+    // %単位で指定（フィールドサイズに追従）
+    dot.style.left = `${pos.x}%`;
+    dot.style.top = `${pos.y}%`;
+    await new Promise(r => setTimeout(r, delay));
   }
 
   dot.style.display = "none";
-  instruction.textContent = "完了しました";
+  instruction.textContent = "終了しました！\nもう一度やる？";
   startBtn.style.display = "inline-block";
 }
 
