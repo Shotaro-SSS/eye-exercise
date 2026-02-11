@@ -8,8 +8,8 @@ const instruction = document.getElementById("instruction");
 const corners = [
   {x: 10, y: 10},  // 1: 左上
   {x: 90, y: 10},  // 2: 右上
-  {x: 90, y: 90},  // 3: 右下
-  {x: 10, y: 90}   // 4: 左下
+  {x: 10, y: 90},  // 3: 左下
+  {x: 90, y: 90}   // 4: 右下
 ];
 
 // 動く順序（1-based → 配列は0-basedなので -1 する）
