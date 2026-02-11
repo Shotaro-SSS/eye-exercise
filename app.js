@@ -13,7 +13,7 @@ const corners = [
 ];
 
 // 動く順序（1-based → 配列は0-basedなので -1 する）
-const sequence = [1,3,2,4,1,2,3,4,2,1,3];  // 指定された順番
+const sequence = [1,3,2,4,1,2,3,4,2,1,3,4,3,1,2,4];  // 指定された順番
 
 async function runExercise() {
   startBtn.style.display = "none";
